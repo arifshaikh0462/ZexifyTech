@@ -62,3 +62,28 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 });
+
+// Welcome Popup logic
+document.addEventListener('DOMContentLoaded', function () {
+  const popup = document.getElementById('welcome-popup');
+  const closeBtn = document.getElementById('popup-close');
+
+  if (popup) {
+    // Thoda delay ke saath popup dikhayenge
+    setTimeout(() => {
+      popup.classList.add('show');
+    }, 800);
+
+    closeBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      popup.classList.remove('show');
+    });
+
+    // Overlay ke bahar click karne pe bhi close ho jaye
+    popup.addEventListener('click', function (e) {
+      if (e.target === popup) {
+        popup.classList.remove('show');
+      }
+    });
+  }
+});
