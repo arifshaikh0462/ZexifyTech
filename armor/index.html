@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARMOR – the next-gen frontend programming language | Zexify Tech</title>
+<meta name="description" content="ARMOR is a new programming language for websites and frontend apps. Write .ar files, get fast HTML, CSS and JavaScript. Coming soon from Zexify Tech.">
+<meta name="theme-color" content="#070b14">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@property --a{syntax:"<angle>";inherits:false;initial-value:0deg}
+:root{
+  --bg:#070b14; --ink:#eef2ff; --mute:#94a3c4; --line:rgba(148,163,255,.16);
+  --v:#7c5cff; --c:#22d3ee; --amber:#ffb547;
+  --glass:rgba(18,26,48,.55);
+  --grad:linear-gradient(100deg,#a78bfa 0%,#22d3ee 55%,#a78bfa 100%);
+  --display:"Space Grotesk",system-ui,sans-serif;
+  --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.65 var(--body);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--c);outline-offset:3px;border-radius:8px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px;position:relative;z-index:2}
+h1,h2,h3{font-family:var(--display);margin:0;letter-spacing:-.03em;line-height:1.05}
+h2{font-size:clamp(32px,5vw,56px);font-weight:700}
+h3{font-size:20px;font-weight:700;letter-spacing:-.01em}
+p{margin:0 0 1em;max-width:60ch}
+code{font-family:var(--mono)}
+.lead{font-size:19px;color:var(--mute)}
+.gt{background:var(--grad);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:slide 6s linear infinite}
+@keyframes slide{to{background-position:-200% 0}}
+
+/* ---------- background ---------- */
+.aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.aurora i{position:absolute;border-radius:50%;filter:blur(110px);opacity:.5;animation:drift 22s ease-in-out infinite alternate}
+.aurora i:nth-child(1){width:560px;height:560px;background:var(--v);top:-180px;left:-120px}
+.aurora i:nth-child(2){width:480px;height:480px;background:#0891b2;top:18%;right:-160px;animation-delay:-8s}
+.aurora i:nth-child(3){width:420px;height:420px;background:#c026d3;opacity:.28;bottom:-160px;left:30%;animation-delay:-14s}
+@keyframes drift{to{transform:translate(90px,60px) scale(1.15)}}
+.grid{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:56px 56px;
+  -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 20%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse 70% 60% at 50% 20%,#000 20%,transparent 75%)}
+
+/* ---------- nav ---------- */
+nav{position:sticky;top:14px;z-index:20;margin:14px auto 0;max-width:1000px;width:calc(100% - 32px);
+  display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px 10px 20px;
+  background:var(--glass);border:1px solid var(--line);border-radius:999px;
+  -webkit-backdrop-filter:blur(18px) saturate(150%);backdrop-filter:blur(18px) saturate(150%)}
+.logo{font:700 20px var(--display);letter-spacing:.06em;text-decoration:none;display:flex;gap:10px;align-items:center}
+.logo svg{width:24px;height:24px}
+nav .links{display:flex;gap:26px;font-size:15px;color:var(--mute)}
+nav .links a{text-decoration:none}nav .links a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;font-weight:600;font-size:15.5px;text-decoration:none;border:1px solid var(--line);color:var(--ink);transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.main{border:0;color:#06101f;background:linear-gradient(100deg,#c4b5fd,#67e8f9);box-shadow:0 10px 40px -10px rgba(103,232,249,.7)}
+.btn.main:hover{box-shadow:0 14px 50px -8px rgba(167,139,250,.9)}
+.btn.sm{padding:9px 18px;font-size:14.5px}
+
+/* ---------- hero ---------- */
+.hero{padding:84px 0 70px}
+.hero .wrap{display:grid;grid-template-columns:1.02fr 1fr;gap:54px;align-items:center}
+.badge{display:inline-flex;gap:10px;align-items:center;padding:7px 16px 7px 12px;border-radius:999px;font-size:14.5px;font-weight:500;color:var(--amber);
+  background:rgba(255,181,71,.08);border:1px solid rgba(255,181,71,.35);margin-bottom:26px}
+.badge i{width:9px;height:9px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 0 rgba(255,181,71,.7);animation:ping 2s infinite}
+@keyframes ping{to{box-shadow:0 0 0 12px rgba(255,181,71,0)}}
+h1{font-size:clamp(44px,7vw,84px);font-weight:700;line-height:1}
+.hero .lead{margin:26px 0 34px}
+.btns{display:flex;flex-wrap:wrap;gap:14px}
+.facts{display:flex;gap:34px;margin-top:44px;flex-wrap:wrap}
+.facts div{font-size:14px;color:var(--mute);line-height:1.3}
+.facts b{display:block;font:700 30px var(--display);color:var(--ink)}
+
+/* code window with rotating gradient border */
+.win{position:relative;border-radius:20px;padding:1.5px;
+  background:conic-gradient(from var(--a),#7c5cff,#22d3ee,#c026d3,#7c5cff);animation:spin 7s linear infinite;
+  box-shadow:0 40px 120px -30px rgba(124,92,255,.55);transform-style:preserve-3d;transition:transform .15s ease-out}
+@keyframes spin{to{--a:360deg}}
+.win .in{border-radius:19px;background:#0b1122;overflow:hidden}
+.bar{display:flex;align-items:center;gap:7px;padding:12px 16px;border-bottom:1px solid var(--line);font:500 12.5px var(--mono);color:var(--mute)}
+.bar i{width:11px;height:11px;border-radius:50%;background:#ff5f57}.bar i:nth-child(2){background:#febc2e}.bar i:nth-child(3){background:#28c840}
+.bar span{margin-left:10px}
+pre{margin:0;padding:20px 22px;font:400 13.5px/1.75 var(--mono);overflow-x:auto}
+.k{color:#c4b5fd}.s{color:#86efac}.p{color:#67e8f9}
+.out{padding:20px 22px 24px;border-top:1px dashed var(--line);background:linear-gradient(180deg,rgba(124,92,255,.08),transparent)}
+.out small{display:block;font:500 12px var(--mono);color:var(--mute);margin-bottom:10px}
+.out h4{margin:0 0 14px;font:700 28px var(--display);letter-spacing:-.02em}
+.out button{font:600 15px var(--body);padding:9px 20px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--ink);cursor:pointer;margin-right:8px;transition:background .2s,transform .1s}
+.out button:hover{background:rgba(124,92,255,.3)}.out button:active{transform:scale(.95)}
+#nice{color:#86efac;margin:12px 0 0;min-height:1.5em;font-weight:500}
+
+/* marquee */
+.marq{border-block:1px solid var(--line);background:rgba(18,26,48,.4);overflow:hidden;position:relative;z-index:2;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.marq div{display:flex;gap:46px;width:max-content;padding:16px 0;animation:mq 30s linear infinite;font:500 15px var(--mono);color:var(--mute)}
+.marq span::before{content:"◆";color:var(--v);margin-right:46px}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+section{padding:110px 0;position:relative}
+.head{margin-bottom:46px}
+
+/* glass + spotlight */
+.glass{position:relative;background:var(--glass);border:1px solid var(--line);border-radius:22px;
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);overflow:hidden}
+.spot::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .3s;
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(124,92,255,.22),transparent 60%)}
+.spot:hover::before{opacity:1}
+
+/* what */
+.split{display:grid;grid-template-columns:1fr 1.15fr;gap:50px;align-items:start}
+.scroll{overflow-x:auto}
+.tbl{width:100%;border-collapse:collapse;font-size:15.5px}
+.tbl th,.tbl td{text-align:left;padding:15px 20px;border-bottom:1px solid var(--line)}
+.tbl th{font:700 15px var(--display);color:var(--mute)}
+.tbl tr:last-child td{border:0}
+.tbl td:last-child{color:#67e8f9;font-weight:500}
+.tbl td:first-child{color:var(--ink)}
+
+/* how */
+.flow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,1fr);gap:14px;position:relative}
+.flow li{padding:22px 18px}
+.flow em{font:500 12px var(--mono);font-style:normal;color:#67e8f9;display:block;margin-bottom:14px}
+.flow .dot{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;margin-bottom:16px;font:700 16px var(--display);color:#06101f;background:linear-gradient(135deg,#c4b5fd,#67e8f9)}
+.flow b{display:block;font:700 18px var(--display);margin-bottom:6px}
+.flow span{font-size:14.5px;line-height:1.55;color:var(--mute);display:block}
+.term{margin-top:20px;padding:22px 26px;font:400 14.5px/2 var(--mono);overflow-x:auto}
+.term .cmd{display:inline-block;min-width:200px;color:#c4b5fd}
+.term .d{color:var(--mute)}
+
+/* bento */
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
+.tile{padding:30px}
+.tile p{color:var(--mute);margin:10px 0 0;font-size:16px}
+.t1{grid-column:span 4}.t2{grid-column:span 2}.t3{grid-column:span 2}.t4{grid-column:span 2}.t5{grid-column:span 2}.t6{grid-column:span 6}
+.ico{font-size:28px;margin-bottom:14px;display:block}
+.err{margin-top:18px;padding:16px 18px;border-radius:14px;background:#0b1122;border:1px solid var(--line);border-left:3px solid var(--amber);font:400 13px/1.8 var(--mono);color:#cbd5f5}
+.err b{color:#fca5a5;font-weight:500}.err u{text-decoration:none;color:#86efac}
+.t6{display:flex;gap:30px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:linear-gradient(120deg,rgba(124,92,255,.22),rgba(34,211,238,.12))}
+.outs{display:flex;gap:10px;flex-wrap:wrap}
+.outs span{padding:8px 16px;border-radius:999px;border:1px solid var(--line);font:500 14px var(--mono);background:rgba(255,255,255,.04)}
+
+/* status */
+.status{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.status .glass{padding:34px}
+.status ul{list-style:none;margin:18px 0 0;padding:0}
+.status li{padding:11px 0 11px 34px;position:relative;border-top:1px solid var(--line);color:var(--mute)}
+.status li::before{content:"";position:absolute;left:0;top:50%;width:20px;height:20px;margin-top:-10px;border-radius:50%;
+  background:linear-gradient(135deg,#86efac,#22d3ee);-webkit-mask:radial-gradient(circle,transparent 5px,#000 6px);mask:radial-gradient(circle,transparent 5px,#000 6px)}
+.status .next li::before{background:none;border:2px dashed var(--mute);-webkit-mask:none;mask:none}
+
+/* cta */
+.cta{text-align:center;padding:70px 30px;border-radius:30px;position:relative;
+  background:linear-gradient(#0b1122,#0b1122) padding-box,conic-gradient(from var(--a),#7c5cff,#22d3ee,#c026d3,#7c5cff) border-box;
+  border:1.5px solid transparent;animation:spin 8s linear infinite;overflow:hidden}
+.cta::before{content:"";position:absolute;width:520px;height:520px;left:50%;top:-300px;transform:translateX(-50%);background:radial-gradient(circle,rgba(124,92,255,.5),transparent 65%);pointer-events:none}
+.cta h2,.cta p,.cta .btn{position:relative}
+.cta p{margin:20px auto 34px}
+
+footer{border-top:1px solid var(--line);padding:34px 0;color:var(--mute);font-size:15px;position:relative;z-index:2}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s,transform .7s cubic-bezier(.2,.7,.2,1)}
+.rv.on{opacity:1;transform:none}
+.hero .wrap>*{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+.hero .wrap>*:nth-child(2){animation-delay:.18s}
+@keyframes rise{from{opacity:0;transform:translateY(30px)}}
+
+@media (max-width:960px){
+  .hero .wrap,.split,.status{grid-template-columns:1fr}
+  .flow{grid-template-columns:repeat(2,1fr)}
+  .t1,.t2,.t3,.t4,.t5{grid-column:span 6}
+  nav .links{display:none}
+  section{padding:80px 0}
+}
+@media (max-width:520px){.flow{grid-template-columns:1fr}.hero{padding-top:56px}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="grid" aria-hidden="true"></div>
+
+<nav>
+  <a class="logo" href="#top" aria-label="ARMOR home">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c4b5fd"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><path d="M16 2 4 7v8c0 7.5 5 13 12 15 7-2 12-7.5 12-15V7L16 2Z" fill="none" stroke="url(#g)" stroke-width="2.4"/><path d="M10 20 16 9l6 11M12.5 16h7" fill="none" stroke="url(#g)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    ARMOR
+  </a>
+  <div class="links"><a href="#what">What it is</a><a href="#how">How it works</a><a href="#why">Why ARMOR</a><a href="#status">Status</a></div>
+  <a class="btn main sm" href="mailto:zexifytech@gmail.com?subject=Notify%20me%20about%20ARMOR">Get notified</a>
+</nav>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="badge"><i></i>Coming soon – already running in our lab</span>
+      <h1>One language for the <span class="gt">entire frontend.</span></h1>
+      <p class="lead">ARMOR is a new programming language for websites and web apps. Write short <code>.ar</code> files and the ARMOR compiler turns them into blazing-fast HTML, CSS and JavaScript for Chrome and every modern browser.</p>
+      <div class="btns">
+        <a class="btn main" href="mailto:zexifytech@gmail.com?subject=Notify%20me%20about%20ARMOR">Get launch updates</a>
+        <a class="btn" href="#how">See how it works</a>
+      </div>
+      <div class="facts">
+        <div><b>1</b>language instead of 3</div>
+        <div><b>0</b>frameworks to install</div>
+        <div><b>100%</b>plain web output</div>
+      </div>
+    </div>
+
+    <div class="win" id="win" aria-label="ARMOR code and its live result">
+      <div class="in">
+        <div class="bar"><i></i><i></i><i></i><span>counter.ar</span></div>
+<pre><code><span class="k">page</span> {
+    <span class="k">state</span> count = <span class="p">0</span>
+
+    <span class="k">body</span> {
+        <span class="p">heading</span> <span class="s">"Count: {count}"</span>
+        <span class="p">button</span> <span class="s">"+1"</span> {
+            <span class="p">onClick</span> { count += 1 }
+        }
+        <span class="k">if</span> count &gt;= 10 {
+            <span class="p">text</span> <span class="s">"Double digits!"</span>
+        }
+    }
+}</code></pre>
+        <div class="out">
+          <small>Live result – try it yourself</small>
+          <h4 id="cnt">Count: 0</h4>
+          <button id="plus" type="button">+1</button><button id="reset" type="button">Reset</button>
+          <p id="nice" aria-live="polite"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marq" aria-hidden="true"><div>
+  <span>state</span><span>component</span><span>onClick</span><span>route</span><span>style { hover }</span><span>await http.get</span><span>bind</span><span>for … in</span><span>slot</span><span>try / catch</span><span>when width &lt; 600</span><span>import</span>
+  <span>state</span><span>component</span><span>onClick</span><span>route</span><span>style { hover }</span><span>await http.get</span><span>bind</span><span>for … in</span><span>slot</span><span>try / catch</span><span>when width &lt; 600</span><span>import</span>
+</div></div>
+
+<section id="what">
+  <div class="wrap">
+    <div class="head rv"><h2>What is <span class="gt">ARMOR?</span></h2></div>
+    <div class="split">
+      <div class="rv">
+        <p class="lead">Today a simple web page needs three languages: HTML for structure, CSS for looks and JavaScript for behaviour. Beginners juggle three syntaxes, and typos fail silently.</p>
+        <p>ARMOR replaces that with <strong>one language</strong>. You describe the screen, its style and its logic in one file, with one consistent shape: <code>name "value" { block }</code>.</p>
+        <p>It is a real programming language, not a template. It has variables, functions, loops, types, components and error handling, plus its own compiler that checks your code before it ever reaches the browser.</p>
+      </div>
+      <div class="glass scroll rv">
+        <table class="tbl">
+          <thead><tr><th></th><th>HTML + CSS + JS</th><th>ARMOR</th></tr></thead>
+          <tbody>
+            <tr><td>Languages to learn</td><td>Three</td><td>One</td></tr>
+            <tr><td>Update the screen</td><td>Manual DOM code</td><td>Change a <code>state</code></td></tr>
+            <tr><td>Styling</td><td>Global, collides</td><td>Scoped automatically</td></tr>
+            <tr><td>Typo in a tag</td><td>Silent failure</td><td>Error plus a fix hint</td></tr>
+            <tr><td>Reusable parts</td><td>Needs a framework</td><td>Built-in components</td></tr>
+            <tr><td>Routing, API calls</td><td>Extra libraries</td><td>Built in</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>How ARMOR <span class="gt">works</span></h2>
+      <p class="lead" style="margin-top:20px">Browsers cannot read <code>.ar</code> files, and ARMOR does not pretend they can. A compiler translates your code ahead of time into the web files browsers already understand, the same idea behind Svelte, Elm and TypeScript.</p>
+    </div>
+    <ol class="flow">
+      <li class="glass spot rv"><span class="dot">1</span><em>index.ar</em><b>You write</b><span>Short, readable ARMOR code in any text editor.</span></li>
+      <li class="glass spot rv"><span class="dot">2</span><em>tokens</em><b>Lexer</b><span>Splits your text into words, numbers, strings and symbols.</span></li>
+      <li class="glass spot rv"><span class="dot">3</span><em>syntax tree</em><b>Parser</b><span>Builds a tree showing how your code is structured.</span></li>
+      <li class="glass spot rv"><span class="dot">4</span><em>checked tree</em><b>Analyzer</b><span>Checks names, types and rules. Mistakes stop here with a clear message.</span></li>
+      <li class="glass spot rv"><span class="dot">5</span><em>HTML · CSS · JS</em><b>Generator</b><span>Writes the browser files from the checked tree.</span></li>
+      <li class="glass spot rv"><span class="dot">6</span><em>runtime</em><b>Browser</b><span>A tiny runtime updates only the parts of the page that changed.</span></li>
+    </ol>
+    <div class="glass term rv"><code>
+<span class="cmd">armor init myapp</span><span class="d">create a new project</span><br>
+<span class="cmd">armor dev</span><span class="d">develop with live reload; errors show in the browser</span><br>
+<span class="cmd">armor build</span><span class="d">production files, ready to upload anywhere</span><br>
+<span class="cmd">armor check</span><span class="d">find errors without building</span>
+    </code></div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="wrap">
+    <div class="head rv"><h2>How ARMOR helps <span class="gt">programmers</span></h2></div>
+    <div class="bento">
+      <div class="glass spot tile t1 rv">
+        <span class="ico">🧠</span><h3>Errors that teach, not confuse</h3>
+        <p>The compiler tells you what is wrong, where, and how to fix it, before anything reaches the browser.</p>
+        <div class="err"><b>error[AR0201]:</b> unknown element 'buton'<br>&nbsp;--&gt; index.ar:9:9<br>&nbsp;= help: <u>did you mean 'button'?</u></div>
+      </div>
+      <div class="glass spot tile t2 rv"><span class="ico">⚡</span><h3>Screens that update themselves</h3><p>Declare a <code>state</code> variable and the page follows it. No manual DOM code.</p></div>
+      <div class="glass spot tile t3 rv"><span class="ico">🎯</span><h3>Less to learn, faster to ship</h3><p>One syntax for structure, style and logic. Build a working page in an afternoon.</p></div>
+      <div class="glass spot tile t4 rv"><span class="ico">🧩</span><h3>Components built in</h3><p>Make a card or navbar once, with properties and slots, and reuse it anywhere.</p></div>
+      <div class="glass spot tile t5 rv"><span class="ico">🎨</span><h3>Styles that never leak</h3><p>Scoped automatically, with <code>hover</code> and <code>when width &lt; 600</code> built in.</p></div>
+      <div class="glass tile t6 rv">
+        <div><span class="ico">🚀</span><h3>No lock-in. Host it anywhere.</h3><p>The output is plain web files. Any server or static host works, with nothing extra for your visitors to run.</p></div>
+        <div class="outs"><span>index.html</span><span>app.css</span><span>app.js</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="status">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Where we <span class="gt">are</span></h2>
+      <p class="lead" style="margin-top:20px">ARMOR is not released yet. Version 0.1 works inside Zexify Tech and we are polishing it for a public launch.</p>
+    </div>
+    <div class="status">
+      <div class="glass rv"><h3>Working today</h3><ul>
+        <li>Full compiler: lexer, parser, analyzer, generator</li>
+        <li>State, components, slots, <code>if</code> and <code>for</code></li>
+        <li>Scoped styles, forms, events, routing, API requests</li>
+        <li>Dev server with live reload and error overlay</li>
+        <li>Command-line tool for Windows</li>
+      </ul></div>
+      <div class="glass next rv"><h3>Coming next</h3><ul>
+        <li>Public download and installer</li>
+        <li>VS Code extension with autocomplete</li>
+        <li>Documentation website and tutorials</li>
+        <li>Faster list updates and a code formatter</li>
+        <li>Package manager and component library</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:20px">
+  <div class="wrap">
+    <div class="cta rv">
+      <h2>Be the first to <span class="gt">use ARMOR.</span></h2>
+      <p class="lead">Send us a short email and we will tell you the day the download goes live. We use your address for that one message only.</p>
+      <a class="btn main" href="mailto:zexifytech@gmail.com?subject=Notify%20me%20about%20ARMOR">Email zexifytech@gmail.com</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Zexify Tech. ARMOR is open-source software under the MIT license.</span>
+    <a href="https://zexifytech.in">zexifytech.in</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var n=0,cnt=document.getElementById("cnt"),nice=document.getElementById("nice");
+  function draw(){cnt.textContent="Count: "+n;nice.textContent=n>=10?"Double digits!":"";}
+  document.getElementById("plus").addEventListener("click",function(){n++;draw();});
+  document.getElementById("reset").addEventListener("click",function(){n=0;draw();});
+
+  document.querySelectorAll(".spot").forEach(function(el){
+    el.addEventListener("pointermove",function(e){
+      var r=el.getBoundingClientRect();
+      el.style.setProperty("--mx",(e.clientX-r.left)+"px");
+      el.style.setProperty("--my",(e.clientY-r.top)+"px");
+    });
+  });
+
+  var win=document.getElementById("win"),fine=matchMedia("(hover:hover) and (pointer:fine)").matches,reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
+  if(fine&&!reduce){
+    win.addEventListener("pointermove",function(e){
+      var r=win.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+      win.style.transform="perspective(1000px) rotateY("+(x*7)+"deg) rotateX("+(-y*7)+"deg)";
+    });
+    win.addEventListener("pointerleave",function(){win.style.transform="";});
+  }
+
+  var items=document.querySelectorAll(".rv");
+  if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target);}});},{threshold:.12});
+    items.forEach(function(el,i){el.style.transitionDelay=(i%3)*80+"ms";io.observe(el);});
+  }else items.forEach(function(el){el.classList.add("on");});
+})();
+</script>
+</body>
+</html>
